@@ -86,4 +86,19 @@ TEST_F(NginxStrConfigTest,ValidMultNestedConfig)
 	EXPECT_TRUE(ParseString(foo));
 }
 
+//unmatched parenthesis are invalid, but detected as valid
+//bug: need fix 
+TEST_F(NginxStrConfigTest,MissingStartBraces)
+{
+	EXPECT_FALSE(ParseString("server location / root /data/www;}"));
+	
+}
+//another case of unmatched parenthesis (missing end braces)
+TEST_F(NginxStrConfigTest,MissingEndBraces)
+{
+	EXPECT_FALSE(ParseString("server {location / root /data/www;"));
+	
+}
+
+
 
